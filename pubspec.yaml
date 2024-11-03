@@ -39,7 +39,9 @@ dependencies:
     sdk: flutter
   horizontal_list: ^0.0.7
   http: ^1.1.1
-
+  url_launcher: ^6.0.20
+  youtube_player_flutter: ^8.1.2
+  flutter_inappwebview: ^5.3.2 
 dev_dependencies:
   flutter_lints: ^4.0.0
 

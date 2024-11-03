@@ -54,36 +54,47 @@ class _ListaActoresWidgetState extends State<ListaActoresWidget> {
 
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 100,
+      height: MediaQuery.of(context).size.height * .20,
+      // decoration: BoxDecoration(color: Colors.amber),
       child: ListView.builder(
         itemCount: actores!['cast'].length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           final actor = actores!['cast'][index];
-          return Container(
-            width: 80, // Ancho del contenedor
-            height: 80, // Altura del contenedor para que sea circular
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1000),
-                  // color: Colors.red,
+          return Column(
+            children: [
+              Container(
+                width: 80, // Ancho del contenedor
+                height: 80, // Altura del contenedor para que sea circular
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(1000),
+                      // color: Colors.red,
+                    ),
+                    child: actor['profile_path'] == null
+                        ? Text('no hay foto')
+                        : ClipOval(
+                            // Asegura que la imagen sea circular
+                            child: Image.network(
+                              'https://image.tmdb.org/t/p/w500/${actor['profile_path']}',
+                              fit: BoxFit.cover, // Cambiar a BoxFit.cover
+                              width: 80, // Añadir ancho
+                              height: 80, // Añadir altura
+                            ),
+                          ),
+                  ),
                 ),
-                child: actor['profile_path'] == null
-                    ? Text('no hay foto')
-                    : ClipOval(
-                        // Asegura que la imagen sea circular
-                        child: Image.network(
-                          'https://image.tmdb.org/t/p/w500/${actor['profile_path']}',
-                          fit: BoxFit.cover, // Cambiar a BoxFit.cover
-                          width: 80, // Añadir ancho
-                          height: 80, // Añadir altura
-                        ),
-                      ),
               ),
-            ),
+              Container(
+                  width: MediaQuery.of(context).size.width * .2,
+                  height: MediaQuery.of(context).size.height * .08,
+                  // decoration: BoxDecoration(color: Colors.red),
+                  child: Text(actor['name']),
+                  alignment: Alignment.center)
+            ],
           );
         },
       ),
